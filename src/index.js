@@ -13,6 +13,7 @@ import { store, persistor } from './redux/store';
 
 import './index.css';
 import App from './App';
+import { resolvers, typeDefs } from './graphql/resolvers'
 
 //Link creation to the backend GraphQL server
 const httpLink = createHttpLink({
@@ -24,7 +25,15 @@ const cache = new InMemoryCache(); // Apollo unitily manages data, an object for
 //Apollo client creation
 const client = new ApolloClient({
 	link: httpLink,
-	cache
+	cache,
+	typeDefs,
+	resolvers
+});
+
+client.writeData({
+	data: {
+		cartHidden: true
+	}
 });
 
 //Data request from GraphQL
