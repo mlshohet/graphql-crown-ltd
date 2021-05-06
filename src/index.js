@@ -5,9 +5,9 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
 import { ApolloProvider } from 'react-apollo';
-import { createHttpLink } from 'apollo-link-http';
+import { createHttpLink } from 'apollo-link-http'; //Client connects with this to endpoint
 import { InMemoryCache } from 'apollo-cache-inmemory'; //Apollo cache utility
-import { ApolloClient, gql } from 'apollo-boost';
+import { ApolloClient, gql } from 'apollo-boost'; //gql is from Apollo
 
 import { store, persistor } from './redux/store';
 
@@ -23,6 +23,7 @@ const httpLink = createHttpLink({
 const cache = new InMemoryCache(); // Apollo unitily manages data, an object for local storage
 
 //Apollo client creation
+// Cache is for local storage - replaces redux
 const client = new ApolloClient({
 	link: httpLink,
 	cache,
@@ -30,6 +31,8 @@ const client = new ApolloClient({
 	resolvers
 });
 
+// this is where the data gets put into the cache
+// Initial state of the cache
 client.writeData({
 	data: {
 		cartHidden: true,
@@ -39,11 +42,15 @@ client.writeData({
 });
 
 //Data request from GraphQL
+// Apollo syntax for request
+// Method that takes an object
+//returns a Promise
 
 client
 	.query({
 	//same structure of the key in the backend
-		query: gql`
+	//this is declaration that it's a gql object
+		query: gql` 
 			{
 				getCollectionsByTitle(title: "hats") {
 					id
@@ -57,6 +64,8 @@ client
 				}
 			}`
 	}).then(res => console.log(res));
+
+
 
 ReactDOM.render(
 	<ApolloProvider client={client}>

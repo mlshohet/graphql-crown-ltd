@@ -1,5 +1,7 @@
 import React from 'react';
-import { compose, graphql } from 'react-apollo';
+
+import { flowRight } from 'lodash';
+import { graphql } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
 import CartIcon from './cart-icon.component';
@@ -26,7 +28,7 @@ const CartIconContainer = ({data: {itemCount}, toggleCartHidden }) => {
 	)
 };
 
-export default compose(
+export default flowRight(
 	graphql(GET_ITEM_COUNT),
 	graphql(TOGGLE_CART_HIDDEN, { name: 'toggleCartHidden' })
 )(CartIconContainer);

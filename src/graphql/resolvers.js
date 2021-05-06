@@ -2,8 +2,15 @@ import { gql } from 'apollo-boost';
 
 import { addItemToCart, getCartItemCount } from './cart.utils';
 
+
+// Values to resolve from queries on the client side (Redux mimic)
 //Type definition for the backend
 //Type definitions should be capitalized
+// This is the database schema ON THE CLIENT, ON THE FRONT END
+
+// extend extends exisiting type
+// Mutation is type of object that can be updated,
+// defined below in the resolver
 export const typeDefs = gql`
 	extend type Item {
 		quantity: Int
@@ -15,7 +22,8 @@ export const typeDefs = gql`
 	}
 `;
 
-//@client signals for local cache query, not backend
+///@client signals for local cache query, not backend
+// this is the Queries on the client cache
 const GET_CART_HIDDEN = gql`
 	{
 		cartHidden @client
@@ -35,6 +43,7 @@ const GET_ITEM_COUNT = gql`
 `;
 
 //Actual GraphQL mutation object definition
+// key represents a function
 export const resolvers = {
 	Mutation: {
 		toggleCartHidden: (_root, _args, { cache }) => {

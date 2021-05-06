@@ -12,5 +12,4 @@ const CollectionsOverview = ({ collections }) => (
   </div>
 );
 
-
 export default CollectionsOverview;
