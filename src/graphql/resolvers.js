@@ -30,6 +30,8 @@ const GET_CART_HIDDEN = gql`
 	}
 `;
 
+// get cart items query from the client
+
 const GET_CART_ITEMS = gql`
 	{
 		cartItems @client

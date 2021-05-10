@@ -4,7 +4,10 @@ import CustomButton from '../custom-button/custom-button.component';
 
 import './collection-item.styles.scss';
 
-const CollectionItem = ({ item, addItem }) => {
+const CollectionItem = (props) => {
+  console.log("Props on item: ", props);
+  let item = props.item;
+  let addItem = props.addItem;
   const { name, price, imageUrl } = item;
 
   return (
